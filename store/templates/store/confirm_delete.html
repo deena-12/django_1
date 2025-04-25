@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Delete</title>
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+</head>
+<body>
+    <h2>Confirm Deletion</h2>
+    <p>Are you sure you want to delete the purchase made by <strong>{{ purchase.customer_name }}</strong>?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+        <a href="{% url 'list_purchases' %}">Cancel</a>
+    </form>
+</body>
+</html>

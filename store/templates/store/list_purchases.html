@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Purchases</title>
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+</head>
+<body>
+    <h2>All Purchases</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Shipping Address</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for purchase in purchases %}
+            <tr>
+                <td>{{ purchase.customer_name }}</td>
+                <td>
+                    <ul>
+                        {% for pi in purchase.purchaseitem_set.all %}
+                        <li>{{ pi.item.name }} - {{ pi.quantity }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    {% with shippings=purchase.shipping_set.all %}
+                        {% if shippings %}
+                            {{ shippings.0.address }}
+                        {% else %}
+                            Not Available
+                        {% endif %}
+                    {% endwith %}
+                </td>
+                <td>{{ purchase.date }}</td>
+                <td>
+                    <a href="{% url 'edit_purchase' purchase.id %}">Edit</a> |
+                    <a href="{% url 'delete_purchase' purchase.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

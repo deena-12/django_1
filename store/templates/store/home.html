@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Homepage</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our Store!</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/items/">Items</a></li>
+                <li><a href="/about/">About Us</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+    <h2>Featured Items</h2>
+    {% if items %}
+        <ul>
+            {% for item in items %}
+                <li>
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.description }}</p>
+                    <p>Price: ${{ item.price }}</p>
+                    <a href="/item/{{ item.id }}">View Details</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No items available at the moment.</p>
+    {% endif %}
+</section>
+
+
+        <section>
+            <h2>Special Offers</h2>
+            <p>Check out our special offers below.</p>
+            <!-- You can add specific offer details here -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Our Store. All rights reserved.</p>
+    </footer>
+</body>
+</html>
